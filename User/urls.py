@@ -30,7 +30,7 @@ urlpatterns = [
     path('delete/<int:music_id>/',views.delete,name='delete'),
     path('favourites',views.favourites,name='favourites'),
     path('subscribe/', views.subscribe, name='subscribe'),
-    path('home1',views.home1,name='home1'),
+    
 
     
     

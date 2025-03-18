@@ -275,5 +275,3 @@ def favourites(request):
 def subscribe(request):
     return redirect(subscribe)
 
-def  home1(request):
-    return render(request,'lyrics.html')
