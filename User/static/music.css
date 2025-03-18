@@ -1,0 +1,52 @@
+.heart-icon {
+    width: 20px;
+    height: 20px;
+    color: #000000;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .liked .heart-icon {
+    color: #1DB954; /* Spotify green */
+    transform: scale(1.2); /* Enlarge on like */
+    transition: color 0.3s ease, transform 0.2s ease;
+  }
+
+  
+  .share-options {
+    position: absolute;
+    background-color: #e24848;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    width: 200px;
+    z-index: 10;
+    margin-top: 10px;
+  }
+  
+  .share-options ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .share-options li {
+    margin-bottom: 10px;
+  }
+  
+  .share-options a {
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .share-options a:hover {
+    color: #007bff;
+  }
+  
+  .share-options i {
+    font-size: 18px;
+  }
+  

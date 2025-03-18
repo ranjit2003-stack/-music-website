@@ -1,0 +1,110 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f7f7f7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  /* Payment Container */
+  .payment-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .payment-card {
+    background-color: #fff;
+    padding: 30px;
+    width: 380px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+    overflow: hidden;
+  }
+  
+  h1 {
+    font-size: 24px;
+    margin-bottom: 25px;
+    color: #333;
+  }
+  
+  /* Form Section */
+  .payment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .payment-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .payment-section label {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 8px;
+  }
+  
+  .payment-section input {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    outline: none;
+    transition: all 0.3s ease;
+  }
+  
+  .payment-section input:focus {
+    border-color: #1DB954;
+    box-shadow: 0 0 5px rgba(29, 185, 84, 0.6);
+  }
+  
+  /* Payment Button */
+  .payment-button {
+    background-color: #1DB954;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .payment-button:hover {
+    background-color: #1ed760;
+  }
+  
+  /* Mobile Responsiveness */
+  @media (max-width: 480px) {
+    .payment-card {
+      width: 95%;
+      padding: 20px;
+    }
+  
+    h1 {
+      font-size: 22px;
+    }
+    
+    .payment-button {
+      font-size: 14px;
+      padding: 12px;
+    }
+  }
+  
+  

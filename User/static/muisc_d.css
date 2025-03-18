@@ -1,0 +1,79 @@
+.like-button {
+    background-color: #1DB954; /* Green Background */
+    color: rgb(10, 9, 9); /* White Text */
+    border: 2px solid #1DB954;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.like-button:hover {
+    background-color:  #1DB954 ;/* Darker Green on Hover */
+    transform: scale(1.05);
+    box-shadow: 0px 0px 10px rgba(156, 123, 123, 0.8);
+    
+}
+
+button:hover {
+    background-color: #1DB954; /* Dark Green */
+    transition: 0.3s;
+    transform: scale(1.1);
+    box-shadow: 0px 0px 10px rgba(156, 123, 123, 0.8);
+    color: rgb(0, 0, 0);
+   
+}
+.lyrics-btn:hover .lyrics-text {
+    color: rgb(0, 0, 0); /* Text turns white on hover */
+}
+
+.lyrics-btn:hover i {
+    color: rgb(151, 130, 130); /* Icon remains black on hover */
+}
+    
+    .audio-player {
+    position: relative;
+    background: #f1f1f1;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.audio-icons i:hover {
+    color: #1DB954; /* Spotify Green on Hover */
+    transition: 0.3s ease-in-out;
+}
+
+.dropdown-menu {
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.dropdown-item:hover {
+    background: #4b45a1;
+    color: rgb(184, 69, 69);
+}
+
+.bookmark-btn {
+    border: none;
+    background: transparent;
+    font-size: 20px; /* Icon Size */
+    cursor: pointer;
+    transition: color 0.3s ease-in-out;
+    outline: none;
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Space between icon and text */
+}
+
+.bookmark-btn:hover {
+    color: #000000; /* Spotify Green Hover Effect */
+}
+
+.bookmarked {
+    color: #82b91d; /* Green Color when Bookmarked */
+}
+
+
+    

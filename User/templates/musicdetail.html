@@ -1,0 +1,234 @@
+
+{% extends 'Musics.html' %}
+{% block music_section %}
+{% load static %}
+<head>
+  <link rel="stylesheet" href="{% static 'muisc_d.css' %}">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<section class="py-5" style="background-color: #121212; color: white;">
+  <div class="container">
+      
+      <h1 class="text-center" style="color: #1DB954; font-weight: bold;">🎶 {{  music.musicname }}</h1>
+
+      <div class="d-flex justify-content-center">
+          {% if music.image %}
+          <img src="{{ music.image.url }}" alt="{{ music.musicname }}" class="img-fluid rounded" style="max-height: 400px; object-fit: cover; border: 2px solid #1DB954;">
+          {% else %}
+          <p class="text-center mt-3" style="color: #888;">No image available.</p>
+          {% endif %}
+      </div>
+
+      <div class="text-center mt-4">
+          <p><strong>Artist:</strong> {{ music.artistname }}</p>
+
+          <!-- Audio Player -->
+          <audio controls class="custom-audio w-100">
+              <source src="{{ music.songs.url }}" type="audio/mpeg">
+              Your browser does not support the audio element.
+          </audio>
+        
+          <style>
+              /* Background color for the entire audio player */
+              .custom-audio {
+                  background-color: #1DB954;
+                  padding: 10px;
+                  border-radius: 10px;
+                  width: 100%;
+                  border: 2px solid transparent; /* Default border */
+                  transition: border-color 0.3s ease-in-out; /* Smooth transition */
+              }
+
+              /* Hover effect: change border to a colorful gradient */
+              .custom-audio:hover {
+                  border: 1px solid linear-gradient(135deg, #ff7eb3, #1DB954, #4facfe);
+              }
+
+              /* Customize the speaker (mute/unmute button) background */
+              .custom-audio::-webkit-media-controls-mute-button {
+                  background-color: hsl(130, 61.5%, 37.6%);
+                  border-radius: 50%; /* Make it circular */
+              }
+
+              /* Customize volume slider background */
+              .custom-audio::-webkit-media-controls-volume-slider {
+                  background-color: rgb(109, 197, 140);
+                  border-radius: 10px;
+              }
+
+              /* Add some extra styling to the slider thumb */
+              .custom-audio::-webkit-slider-thumb {
+                  background-color: rgb(156, 19, 19);
+                  border-color: blue;
+              }
+          </style>
+
+          <!-- Like, Share, Download Buttons -->
+          <div class="mt-3 d-flex justify-content-center gap-3">
+            <!-- Like Button -->
+            <form action="{% url 'like_music' music.id %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn d-flex align-items-center justify-content-center" style="background-color: #1DB954; border: 2px solid black; font-size: 20px; padding: 10px 20px; border-radius: 8px; width: 70px; height: 50px;" >
+                    <i class="fa-solid fa-thumbs-up" style="font-size: 15px; color: black; margin-right: 8px;"></i>
+                    <span style="color: black;"> ({{ music.likes }})</span>
+                </button>
+            </form>
+            
+            <!-- Dislike Form -->
+            <form action="{% url 'dislike' music.id %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn d-flex align-items-center justify-content-center" style="background-color: #1DB954; border: 2px solid black; font-size: 20px; padding: 10px 20px; border-radius: 8px; width: 70px; height: 50px;">
+                    <i class="fa-solid fa-thumbs-down" style="font-size: 15px; color: black; margin-right: 8px;"></i>
+                    <span style="color: black;"> ({{ music.dislikes }})</span>
+                </button>
+                
+            </form>
+        
+            <!-- Download Button -->
+            <button onclick="downloadSong('{{ music.songs.url }}')" class="btn d-flex align-items-center justify-content-center" style="background-color: #1DB954; border: 2px solid black; font-size: 20px; padding: 10px 20px; border-radius: 8px; width: 150px; height: 50px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="black" class="me-2" viewBox="0 0 16 16">
+                    <path d="M.5 9.9a.5.5 0 0 1 .5-.5h4v-7a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 .5.5v7h4a.5.5 0 0 1 0 1h-4.396l.928.928c.58.58.24 1.572-.66 1.572H6.628c-.9 0-1.239-.992-.66-1.572L6.896 10H2a.5.5 0 0 1-.5-.5zM6.5 12a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-1H7v1a.5.5 0 0 1-1 0v-2z"/>
+                </svg>
+                Download
+            </button>
+        
+            <!-- Share Button -->
+            <button class="btn d-flex align-items-center justify-content-center" id="shareBtn" style="background-color: #1DB954; border: 2px solid black; font-size: 20px; padding: 10px 20px; border-radius: 8px; width: 150px; height: 50px;">
+                🔗 Share
+            </button>
+        
+            <!-- Lyrics Button -->
+            <a href="https://www.google.com/search?q={{ music.musicname|urlencode }}+lyrics" target="_blank" style="text-decoration: none;">
+                <button class="btn d-flex align-items-center justify-content-center lyrics-btn" style="background-color: #1DB954; border: 2px solid black; font-size: 20px; padding: 10px 20px; border-radius: 8px; width: 150px; height: 50px;">
+                    <i class="fa-solid fa-file-lines" style="font-size: 20px; color: black; margin-right: 8px;"></i>
+                    <span class="lyrics-text" style="color: black;">Lyrics</span>
+                </button>
+            </a>
+            <a href="{% url 'fav' music.id%}" style="text-decoration: none;">
+                
+                <button class="btn btn-light bookmark-btn" id="bookmark-{{ music.id }}" 
+                
+                        onclick="toggleBookmark('{{ music.id }}')" 
+                        title="Add to Bookmark"
+                        style="background-color: #1DB954; border: 2px solid black; font-size: 20px; padding: 10px 20px; border-radius: 8px; width: 90px; height: 50px;">
+                    <i class="fa-solid fa-bookmark"></i> Fav
+                </button>
+            </a>
+            
+
+        </div>
+        
+            <!-- Share Options (Hidden by Default) -->
+            <div class="share-options mt-3 text-center" style="display: none;">
+                <p style="color: #1DB954; font-weight: bold;">Share on:</p>
+                <a href="https://wa.me/?text={{ i.songs.url }}" target="_blank" class="btn btn-outline-light btn-sm me-2">WhatsApp</a><br>
+                <a href="https://www.facebook.com/sharer/sharer.php?u={{ i.songs.url }}" target="_blank" class="btn btn-outline-light btn-sm me-2">Facebook</a><br>
+                <a href="https://twitter.com/intent/tweet?url={{ i.songs.url }}" target="_blank" class="btn btn-outline-light btn-sm me-2">Twitter</a><br>
+                <a href="https://www.linkedin.com/shareArticle?url={{ i.songs.url }}" target="_blank" class="btn btn-outline-light btn-sm">LinkedIn</a><br>
+            </div>
+
+
+          
+        </div>
+      
+    </div>
+</section>
+
+<!-- Comment Section -->
+<section class="comment-section py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-4">Comments</h2>
+
+        <!-- Ensure 'music' exists before using its ID in the form -->
+        {% if music %}
+        <form action="{% url 'comments' music.id %}" method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="comment" class="form-label">Your Comment</label>
+                <textarea class="form-control" id="comment" name="comment" rows="4" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Post Comment</button>
+        </form>
+        {% else %}
+        <p class="text-danger text-center">Error: Music not found.</p>
+        {% endif %}
+
+        <!-- Display Comments -->
+        <div class="comments-list mt-4">
+            <h3>Recent Comments:</h3>
+            {% for comment in comments %}
+            <div class="comment mb-3 p-3 border rounded">
+                <p><strong>{{ comment.user.firstname }}:</strong> {{ comment.comments }}</p>
+                
+            </div>
+            {% empty %}
+            <p>No comments yet. Be the first to comment!</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<script>
+    // download Functionality
+        function downloadSong(songUrl) {
+            if (songUrl) {
+                window.location.href = songUrl; // Directly open the file
+            } else {
+                alert("Song not available 😓");
+            }
+        }
+   
+    
+  // Like Button Functionality
+  document.querySelectorAll('.like-button').forEach(button => {
+      button.addEventListener('click', function () {
+          if (this.classList.contains('liked')) {
+              this.classList.remove('liked');
+              this.innerHTML = '❤️ ';
+          } else {
+              this.classList.add('liked');
+              this.innerHTML = '💚 Liked';
+          }
+      });
+  });
+
+  // Share Button Functionality
+  document.getElementById("shareBtn").addEventListener("click", function(event) {
+      const shareOptions = document.querySelector(".share-options");
+      shareOptions.style.display = shareOptions.style.display === "block" ? "none" : "block";
+      event.stopPropagation(); // Prevent event propagation to document to avoid immediate hiding
+  });
+
+  // Hide share options when clicking outside
+  document.addEventListener("click", function() {
+      const shareOptions = document.querySelector(".share-options");
+      if (shareOptions.style.display === "block") {
+          shareOptions.style.display = "none";
+      }
+  });
+
+  function toggleBookmark(songId) {
+    fetch(`/toggle-bookmark/${songId}/`, {
+        method: 'GET',
+    })
+    .then(response => response.json())
+    .then(data => {
+        const bookmarkBtn = document.getElementById(`bookmark-${songId}`);
+        if (data.bookmarked) {
+            bookmarkBtn.classList.add("bookmarked");
+            bookmarkBtn.title = "Bookmarked";
+        } else {
+            bookmarkBtn.classList.remove("bookmarked");
+            bookmarkBtn.title = "Add to Bookmark";
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+</script>
+
+
+{% endblock %}

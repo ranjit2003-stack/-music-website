@@ -1,0 +1,108 @@
+/* General body styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+  }
+  
+  header {
+    text-align: center;
+    background-color: #0c0e0c; /* Spotify green */
+    color: #fff;
+    padding: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  header h1 {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+  
+  /* Plans container layout */
+  .plans-container {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    flex-wrap: wrap; /* Ensure plans stack on smaller screens */
+  }
+  
+  /* Plan card styling */
+  .plan-card {
+    background-color: #ffffff;
+    border: 2px solid #f1f1f1;
+    border-radius: 15px; /* Soft Spotify-like border */
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    padding: 2rem;
+    text-align: center;
+    width: 300px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .plan-card:hover {
+    border-color: #1db954;
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  .plan-card h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: #1db954; /* Spotify green accent */
+  }
+  
+  .plan-card p {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #000;
+    margin-bottom: 1.5rem;
+  }
+  
+  .plan-card ul {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 1.5rem;
+  }
+  
+  .plan-card ul li {
+    margin: 0.5rem 0;
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  /* Button Styling */
+  .plan-card button {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #1db954;
+    border: none;
+    border-radius: 30px; /* Spotify-style rounded button */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .plan-card button:hover {
+    background-color: #148f44;
+    transform: translateY(-3px);
+  }
+  
+  /* Highlight featured plan */
+  .plan-card.featured {
+    background-color: #ffffff;
+    border: 2px solid #e6e6e6;
+    border-radius: 15px; /* Soft Spotify-like border */
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    padding: 2rem;
+    text-align: center;
+    width: 300px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  .plan-card.featured:hover {
+    border-color: #1db954;
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
+  }
+  

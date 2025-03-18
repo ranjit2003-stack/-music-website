@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Page</title>
+
+    <!-- Google Font -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'music.css' %}">
+</head>
+
+<body>
+
+<!-- Header Section -->
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="background-color:rgb(0, 0, 0);">
+        <div class="container">
+            <a class="navbar-brand" href="#">🎵 ONE SOUND</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'genre' %}">Genre</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'albums' %}">Albums</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'Events' %}">Events</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+{% block music_section %}
+<!-- Main Content Section -->
+<section class="py-5">
+    <h1 class="text-center">Play Songs</h1>
+    <div class="container">
+        <div class="row gy-4">
+            {% for i in data %}
+            <div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center">
+                <div class="card shadow-lg border-0 rounded text-center" style="width: 100%; max-width: 400px;">
+                    <!-- Make the image clickable to navigate to a song detail page -->
+                    {% if i.image %}
+                    <a href="{% url 'musicdetail' i.id %}" style="text-decoration: none;">
+                    
+                      
+                        <img src="{{ i.image.url }}" class="card-img-top" alt="Music Image" style="height: 250px; object-fit: cover; border-radius: 10px 10px 0 0;">
+                    </a>
+                    {% else %}
+                    <p class="text-center mt-3">No image available.</p>
+                    {% endif %}
+
+                    <div class="card-body">
+                        <h5 class="card-title">🎶 {{ i.musicname }}</h5>
+                        <p class="card-text"><strong>Artist:</strong> {{ i.artistname }}</p>
+                        <p class="card-text"><strong>Music Director:</strong> {{ i.musicdirector }}</p>
+                        <p class="card-text"><strong>Release Date:</strong> {{ i.date }}</p>
+
+                        <!-- Audio Player -->
+                        <h5>Listen Now 🎧</h5>
+                       
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+
+
+
+<!-- Footer Section -->
+<footer class="footer-area bg-dark text-white py-4">
+    <div class="container">
+        <div class="row d-flex flex-wrap align-items-center">
+            <div class="col-12 col-md-6">
+                <a href="#"><img src="{% static 'img/core-img/logo.png' %}" alt=""></a>
+                <p class="copywrite-text mt-2">
+                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> 
+                    All rights reserved | This template is made with 
+                    <i class="fa fa-heart-o text-danger" aria-hidden="true"></i> by 
+                    <a href="https://colorlib.com" target="_blank" class="text-white">Colorlib</a>
+                </p>
+            </div>
+
+            <div class="col-12 col-md-6">
+                <div class="footer-nav text-center text-md-end">
+                    <ul class="list-unstyled d-inline-flex gap-3">
+                        <li><a href="#" class="text-white text-decoration-none">Home</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Albums</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Events</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">News</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+    document.getElementById("likeButton").addEventListener("click", function() {
+        this.classList.toggle("liked");
+    });
+    // JavaScript to handle the share button click and show/hide options
+document.getElementById('shareBtn').addEventListener('click', function() {
+    var shareOptions = document.getElementById('shareOptions');
+    // Toggle display of share options
+    if (shareOptions.style.display === 'none') {
+      shareOptions.style.display = 'block';
+    } else {
+      shareOptions.style.display = 'none';
+    }
+  });
+  
+  // JavaScript to handle sharing functionality
+  document.querySelectorAll('.share-link').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault(); // Prevent the default link behavior
+      var platform = this.getAttribute('data-platform');
+      var url = window.location.href; // Get current page URL
+      var shareText = 'Check out this amazing music genre!'; // Text to share
+      
+      if (platform === 'facebook') {
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank');
+      } else if (platform === 'twitter') {
+        window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(url)}`, '_blank');
+      } else if (platform === 'whatsapp') {
+        window.open(`https://wa.me/?text=${encodeURIComponent(shareText + ' ' + url)}`, '_blank');
+      } else if (platform === 'linkedin') {
+        window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(url)}&title=${encodeURIComponent(shareText)}`, '_blank');
+      }
+    });
+  });
+  
+</script>
+
+</body>
+</html>

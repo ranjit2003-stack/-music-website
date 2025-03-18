@@ -1,0 +1,89 @@
+<audio controls class="w-100">
+    <source src="{{ i.songs.url }}" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+
+<!-- Buttons -->
+<div class="mt-3 d-flex align-items-center">
+    <div class="like-button me-2" id="likeButton">
+      <svg xmlns="http://www.w3.org/2000/svg" class="heart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"></path>
+      </svg>
+    </div>
+    <a href="{{ i.songs.url }}" download class="btn btn-success btn-sm">⬇ Download</a>
+    <a href="https://www.google.com/search?q={{ i.musicname|urlencode }}+{{ i.artistname|urlencode }}+lyrics" target="_blank" class="btn btn-success btn-sm">🎤 View Lyrics</a>
+
+    <div>
+     <button class="btn btn-info" id="shareBtn">
+        <i class="fas fa-share-alt"></i> 
+     </button>
+    </div>
+    <div class="share-options" id="shareOptions" style="display: none;">
+        <ul>
+          <li><a href="#" class="share-link" data-platform="facebook"><i class="fab fa-facebook"></i> Facebook</a></li>
+          <li><a href="#" class="share-link" data-platform="twitter"><i class="fab fa-twitter"></i> Twitter</a></li>
+          <li><a href="#" class="share-link" data-platform="whatsapp"><i class="fab fa-whatsapp"></i> WhatsApp</a></li>
+          <li><a href="#" class="share-link" data-platform="linkedin"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+        </ul>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+data=Music.objects.all()
+    context = {'data':data}
+        
+    
+    return render(request,'Musics.html',context)
+
+###
+    uid = request.session.get('user_id')
+
+    if not uid:  # If 'user_id' is not found in session, redirect to login
+        return redirect('login')
+
+    # Check if the user has an active subscription
+    if not Subcription.objects.filter(id=uid, is_active=True).exists():
+        return redirect('subscription')  # Redirect to subscription page if no active subscription
+
+    return redirect('musicdetail')  # Redirect to music details page if subscribed
+
+
+
+    ########
+    <form method="POST" action="{% url 'subscribe' %}">
+      {% csrf_token %}
+      <input type="hidden" name="plan_id" id="selectedPlanId">
+  
+      <h3>Confirm Your Subscription</h3>
+      <p>Plan: <strong><span id="modalPlanName"></span></strong></p>
+      <p>Price: $<span id="modalPlanPrice"></span></p>
+      <p>Duration: <span id="modalPlanDuration"></span> days</p>
+      <p>Start Date: <span id="modalStartDate"></span></p>
+      <p>End Date: <span id="modalEndDate"></span></p>
+  
+      <button type="submit" class="confirm-button">Confirm Subscription</button>
+  </form>
+  
+  <script>
+      function openModal(planId, planName, planPrice, planDuration) {
+          let currentDate = new Date();
+          let endDate = new Date();
+          endDate.setDate(currentDate.getDate() + parseInt(planDuration));
+  
+          document.getElementById("modalPlanName").innerText = planName;
+          document.getElementById("modalPlanPrice").innerText = planPrice;
+          document.getElementById("modalPlanDuration").innerText = planDuration;
+          document.getElementById("modalStartDate").innerText = currentDate.toISOString().split('T')[0];
+          document.getElementById("modalEndDate").innerText = endDate.toISOString().split('T')[0];
+          document.getElementById("selectedPlanId").value = planId;
+  
+          document.getElementById("paymentModal").style.display = "block";
+      }
+  </script>
+  #########
+  <li><a href="#">Pages</a>
+    <ul class="dropdown" style="margin-top: 10px;">
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li><a href="{% url 'albums' %}">Albums</a></li>
+        <li><a href="{% url 'Events' %}">Events</a></li>
+    </ul>
+</li>

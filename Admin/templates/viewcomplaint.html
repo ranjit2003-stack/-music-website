@@ -1,0 +1,45 @@
+{% extends "adminhome.html" %}
+{% block 1st %}
+<div class="card">
+    <div class="card-header">
+      <div class="card-title">Responsive Table</div>
+    </div>
+   
+    <div class="card-body">
+      <div class="card-sub">
+        
+        <code class="highlighter-rouge"><h2>View Complaints</h2></code>
+        <code class="highlighter-rouge"></code>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+
+              
+              <th>Name</th>
+              <th>Email</th>
+              <th>Subject</th>
+             
+            </tr>
+          </thead>
+          <tbody>
+            {% for i in data %}
+            <tr>
+              
+              <td>{{i.name}}</td>
+              <td>{{i.email}}</td>
+              <td>{{i.subject}}</td>
+              
+            </tr>
+            {% endfor %}
+            
+            
+          </tbody>
+        </table>
+      </div>
+    </div>
+  
+  </div>
+</div>
+{% endblock %}

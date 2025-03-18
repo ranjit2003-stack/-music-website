@@ -1,0 +1,36 @@
+{% extends "adminhome.html" %}
+{%block 1st%}
+<div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        {% for i in data %}
+        <form action="" method="post" enctype="multipart/form-data"> 
+          {% csrf_token %}
+          <div class="card-header">
+            <div class="card-title">Edit Details</div>
+         </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6 col-lg-4">
+                <div class="form-group">
+                    <label for="name">Add Genre </label>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="" value="{{i.genre}}">  
+                </div>
+                
+                <div class="form-group">
+                    <label for="name">Add image</label>
+                    <input type="text" class="form-control" id="name" placeholder="" name='name' value="{{i.image}}">
+                </div>                                                                                                      
+                <div class="card-action">
+                  <button class="btn btn-success">Submit</button>
+
+              </div>
+            </div> 
+          </div> 
+        </form>
+        {% endfor %}
+      </div>  
+    </div>  
+  </div>
+
+{% endblock %}

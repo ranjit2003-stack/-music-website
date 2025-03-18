@@ -1,0 +1,104 @@
+
+{% extends 'Musics.html' %}
+{% block music_section %}
+{% load static %}
+
+<head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<div class="container mt-5">
+    <br><br><br>
+    <h2 class="text-center" style="color: rgb(210, 31, 31);"></h2>
+
+    <div class="card mx-auto" style="max-width: 400px; background-color: rgb(29, 185, 84);">
+        <div class="card-body text-center">
+            <h5 class="card-title" style="color: rgb(8, 8, 8); font-weight: bold;">Pay via Google Pay</h5>
+            <p class="card-text">Scan the QR code below to make a payment.</p>
+
+            <!-- UPI QR Code -->
+            <img src="{% static 'img/download.png' %}" alt="UPI QR Code" class="img-fluid" width="250" height="250">
+
+            <p class="mt-3">Or click the button below to pay:</p>
+            <a href="{{ upi_payment_link }}" class="btn btn-dark" onclick="showPopup(event)">Pay with GPay</a>
+        </div>
+    </div>
+</div>
+
+<!-- Popup Modal -->
+<div class="modal" id="paymentSuccessModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title" style="color: #1DB954;">Payment Successful 🎉</h4>
+                <button type="button" class="btn-close" onclick="closePopup()"></button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body text-center">
+                <i class="fa-solid fa-circle-check" style="font-size: 60px; color: #1DB954;"></i>
+                <p class="mt-3">Your payment has been processed successfully!</p>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+                <a href="{% url 'home' %}" class="btn btn-success" onclick="closePopup()">OK</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background: url({% static 'img/bg-img/e1.jpg' %}) no-repeat center center/cover;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 100vh;
+        color: black;
+    }
+
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal-content {
+        animation: popupFade 0.5s ease-in-out;
+        border-radius: 10px;
+    }
+
+    @keyframes popupFade {
+        from {
+            opacity: 0;
+            transform: scale(0.8);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+</style>
+
+<script>
+    function showPopup(event) {
+        event.preventDefault(); // Prevent page refresh
+        document.getElementById("paymentSuccessModal").style.display = "flex"; // Show popup
+    }
+
+    function closePopup() {
+        document.getElementById("paymentSuccessModal").style.display = "none"; // Close popup
+    }
+</script>
+
+
+
+{% endblock %}

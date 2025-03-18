@@ -1,0 +1,78 @@
+{% extends 'Musics.html' %}
+{% block music_section %}
+{% load static %}
+
+<style>
+  body {
+      background-color: #121212;
+      color: white;
+      font-family: Arial, sans-serif;
+  }
+  .container {
+      margin-top: 50px;
+      text-align: center;
+  }
+  h1 {
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+      color: #1DB954;
+  }
+  .list-group-item {
+      background-color: #282828;
+      border: none;
+      color: white;
+      margin-bottom: 10px;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease;
+  }
+  .list-group-item:hover {
+      transform: scale(1.03);
+  }
+  audio {
+      margin: 10px 0;
+      border-radius: 10px;
+  }
+  .btn-danger {
+      background-color: #E22134;
+      border: none;
+      margin-top: 10px;
+      transition: background-color 0.3s;
+  }
+  .btn-danger:hover {
+      background-color: #ff4c4c;
+  }
+  .btn-secondary {
+      background-color: #1DB954;
+      border: none;
+      transition: background-color 0.3s;
+  }
+  .btn-secondary:hover {
+      background-color: #1ed760;
+  }
+</style>
+
+<div class="container">
+  <h1>Favourite Songs</h1>
+  <ul class="list-group">
+      {% for i in favourites %}
+          <li class="list-group-item">
+              <h5>{{ i.music.musicname }} - {{ i.music.artistname }}</h5>
+              <audio controls class="custom-audio w-100">
+                  <source src="{{ i.music.songs.url }}" type="audio/mpeg">
+                  Your browser does not support the audio element.
+              </audio>
+              <div>
+                  <a href="{% url 'delete' i.id %}" class="btn btn-danger btn-sm">Delete</a>
+              </div>
+          </li>
+      {% endfor %}
+  </ul>
+  
+  <a href="{% url 'Musics' %}" class="btn btn-secondary mt-3">Back to Music</a>
+</div>
+
+  
+
+  {% endblock %}

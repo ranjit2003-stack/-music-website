@@ -1,0 +1,36 @@
+{% extends "adminhome.html" %}
+{%block 1st%}
+{% load static %}
+<head>
+  <link rel="stylesheet" href="{% static 'genre.css' %}">
+</head>
+
+<section id="billboard" class="bg-light py-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <h1 class="section-title text-center mt-4" data-aos="fade-up">View Fav Genres</h1>
+    </div>
+    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-3 g-4"> <!-- 3-column grid for large screens -->
+      {% for i in data %}
+        <div class="col">
+          <div class="card h-100 genre-card" data-aos="fade-up" data-aos-delay="600">
+            <div class="card-body">
+              <h3 class="card-title">Genre: {{ i.genre }}</h3>
+              {% if i.image %}
+                <img src="{{ i.image.url }}" class="card-img-top" alt="genre image" width="250" height="250">
+              {% else %}
+                <img src="sample.jpg" class="card-img-top" alt="no image available" width="250" height="250">
+              {% endif %}
+            </div>
+            <div class="card-footer text-center">
+              <a href="{% url 'viewgenmore' i.id %}" class="btn btn-primary">View More</a>
+              <a href="{% url 'editgenre' i.id %}" class="btn btn-warning">Edit</a>
+              <a href="{% url 'delete_1' i.id %}" class="btn btn-danger">Delete</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

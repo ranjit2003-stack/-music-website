@@ -1,0 +1,22 @@
+{% extends "adminhome.html" %}
+{% block 1st %} 
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+        <h1> View Details </h1>
+        <hr>
+        {% for i in data %}
+        <h3>Genre:{{i.genre}}</h3>
+       
+        <h3>Image{{i.image.url}}</h3>
+        {% endfor %}
+    </body>
+</html>
+{% endblock %}

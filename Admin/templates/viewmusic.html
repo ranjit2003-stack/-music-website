@@ -1,0 +1,55 @@
+{% extends "adminhome.html" %}
+{%block 1st%}
+<section id="billboard" class="bg-light py-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <h1 class="section-title text-center mt-4" data-aos="fade-up">View Music</h1>
+    </div>
+
+    <div class="row gy-4">
+      {% for i in data %}
+      <div class="col-lg-4 col-md-6 col-sm-12">
+        <div class="card shadow-lg border-0 rounded" data-aos="fade-up" data-aos-delay="600">
+          
+          <!-- Display Image -->
+          {% if i.image %}
+          <img src="{{ i.image.url }}" class="card-img-top" alt="" 
+               style="height: 150px; object-fit: cover; border-radius: 10px 10px 0 0;">
+          {% else %}
+          <td><img src="sample.jpg" alt="no image" ></td>
+          {% endif %}
+
+          <div class="card-body text-center">
+            <h5 class="card-title">🎵 {{ i.musicname }}</h5>
+            <p class="card-text"><strong>Artist:</strong> {{ i.artistname }}</p>
+            <p class="card-text"><strong>Music Director:</strong> {{ i.musicdirector }}</p>
+            <p class="card-text"><strong>Producer:</strong> {{ i.musicproducer }}</p>
+            <p class="card-text"><strong>Release Date:</strong> {{ i.date }}</p>
+            
+            <!-- Audio Player -->
+            {% if i.songs %}
+            <audio controls class="w-100 mt-2">
+              <source src="{{ i.songs.url }}" type="audio/mpeg">
+              Your browser does not support the audio element.
+            </audio>
+            {% else %}
+            <p class="text-center">No audio available.</p>
+            {% endif %}
+
+            <!-- Action Buttons -->
+            <div class="d-flex flex-wrap justify-content-center gap-2 mt-3">
+              <a href="{% url 'viewmore' i.id %}" class="btn btn-primary btn-sm">View More</a>
+              <a href="{% url 'editmusic' i.id %}" class="btn btn-warning btn-sm">Edit</a>
+              <a href="{% url 'delete' i.id %}" class="btn btn-danger btn-sm">Delete</a>
+              <a href="{% url 'viewcomment' i.id %}" class="btn btn-info btn-sm">Comments</a>
+              <a href="{% url 'viewlike' i.id %}" class="btn btn-success btn-sm">Likes</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{%endblock%}

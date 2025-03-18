@@ -1,0 +1,36 @@
+{% extends "adminhome.html" %}
+{% block 1st %}
+<div class="card">
+    <div class="card-header">
+        <div class="card-title">Responsive Table</div>
+    </div>
+  
+    <div class="card-body">
+        <div class="card-sub">
+            <h2>View Likes</h2>
+        </div>
+        
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Total Likes</th>
+                        <th> Total dislikes</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        
+                        <td>{{ music.musicname }}</td>
+                        <td>{{ music.likes }}</td> 
+                        <td>{{ music.dislikes }}</td> 
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+  </div>
+  
+{% endblock %}

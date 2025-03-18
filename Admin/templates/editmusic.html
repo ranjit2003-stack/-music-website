@@ -1,0 +1,77 @@
+{% extends "adminhome.html" %}
+{%block 1st%}
+<div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        {% for i in data %}
+        <form action="{% url 'edit' i.id%}" method="post" enctype="multipart/form-data"> 
+          {% csrf_token %}
+          <div class="card-header">
+            <div class="card-title">Edit Details</div>
+         </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6 col-lg-4">
+                <div class="form-group">
+                    <label for="name">music name </label>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter name" value="{{i.musicname}}">  
+                </div>
+                <div class="form-group">
+                    <label for="Name1">Artist Name</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="name"
+                        placeholder="name" name='Name1' value="{{i.artistname}}"
+                    >
+                </div>
+                  <div class="form-group">
+                    <label for="exampleFormControlFile1">Music </label>
+                    <input type="file"class="form-control-file" id="exampleFormControlFile1" name='songs'   value="{{i.songs}}">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleFormControlFile1">Image</label>
+                    <input type="file"class="form-control-file" id="exampleFormControlFile1" name='image'   value="{{i.image}}">
+                  </div>
+                  <div class="form-group">
+                    <label for="Name2">Music Director</label>
+                    <input
+                       type="text"
+                        class="form-control"
+                        id="name"
+                        placeholder="name" name='Name2'  value="{{i.musicdirector}}"
+                    >
+                  </div>
+                  <div class="form-group">
+                    <label for="Name3">MUsic Producer</label>
+                    <input
+                       type="text"
+                        class="form-control"
+                        id="name"
+                        placeholder="name" name='Name3'  value="{{i.musicproducer}}"
+                    >
+                  </div>
+                  <div class="form-group">
+                    <label for="Name">Releasing Date</label>
+                    <input
+                        type="date"
+                       class="form-control"
+                       id="name"
+                       placeholder="name"  name='date'  value="{{i.date}}"
+                    >
+                  </div>                                   
+
+                
+                <div class="card-action">
+                  <button class="btn btn-success">Submit</button>
+
+              </div>
+            </div> 
+          </div> 
+        </form>
+        {% endfor %}
+      </div>  
+    </div>  
+  </div>
+
+{% endblock %}
